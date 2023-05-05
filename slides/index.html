@@ -7,7 +7,12 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <title>reveal.js</title>
+    <title>Vue + TypeScript | TypeScript Montréal, May 18 2023</title>
+
+    <link
+      rel="shortcut icon"
+      href="https://montreal.ca/shell/favicon-32x32.png"
+    />
 
     <link rel="stylesheet" href="dist/reset.css" />
     <link rel="stylesheet" href="dist/reveal.css" />
@@ -33,6 +38,14 @@
         width: auto;
         margin-bottom: -5px;
       }
+      ul li {
+        list-style-type: none;
+        list-style-position: outside;
+      }
+      ul.withstyle > li {
+        list-style-type: disc;
+        list-style-position: outside;
+      }
     </style>
     <div class="reveal">
       <div class="slides">
@@ -44,10 +57,39 @@
         </section>
 
         <section>
-          <h3>Expectations</h3>
+          <h3>Quick intro</h3>
+          <ul class="withstyle">
+            <li class="fragment">Lucas Huang</li>
+            <ul class="fragment">
+              <li>🟦 LinkedIn ---- @superko</li>
+              <li>🦊 GitLab ------ @superko</li>
+              <li>🐙 GitHub ------ @pt8o</li>
+              <li>🦣 Mastodon ---- @lph@mastodon.social</li>
+              <li>📸 Instagram --- @h5ien</li>
+              <li>📸 Instagram --- @ragnar.rigatoni</li>
+            </ul>
+            <li class="fragment">senior FE @ Shopify</li>
+            <li class="fragment">usually React + TypeScript dev</li>
+            <li class="fragment">"self-taught"</li>
+            <li class="fragment">🗣️</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>What is Vue?</h3>
+          <ul>
+            <li class="fragment">🪟 frontend JS framework</li>
+            <li class="fragment">⏱️ performance</li>
+            <li class="fragment">🎓 gentle learning curve</li>
+            y
+          </ul>
+        </section>
+
+        <section>
+          <h3>What we're doing</h3>
           <ul>
             <li class="fragment">
-              📝 simple Vue 3 project setup with TypeScript
+              📝 simple Vue project setup with TypeScript
             </li>
             <li class="fragment">🕳️ common patterns & pitfalls</li>
             <li class="fragment">🧰 Vue+TS tips for VSCode</li>
@@ -57,39 +99,12 @@
         </section>
 
         <section>
-          <h3>Quick intro</h3>
+          <h3>What we're not doing</h3>
           <ul>
-            <li class="fragment">Lucas Huang</li>
-            <ul class="fragment">
-              <li>🟦 LI @superko</li>
-              <li>🦊 GL @superko</li>
-              <li>🐙 GH @pt8o</li>
-              <li>📸 IG @h5ien</li>
-              <li>📸 IG @ragnar.rigatoni</li>
-            </ul>
-            <li class="fragment">senior FE @ Shopify</li>
-            <li class="fragment">usually React + TypeScript dev</li>
-            <li class="fragment">"self-taught"</li>
+            <li class="fragment">🎓 walkthrough/code-along</li>
+            <li class="fragment">🤿 technical deep dive</li>
           </ul>
-        </section>
-
-        <section>
-          <h3>Why Vue?</h3>
-          <ul>
-            <li class="fragment">🎓 Learning curve</li>
-            <li class="fragment">⏱️ Performance</li>
-            <li class="fragment">🔩 Design decisions</li>
-            <li class="fragment">🐶 Underdog factor</li>
-          </ul>
-
-          <!-- <br/><br/>
-
-		  <h3 class="fragment">Why not Vue?</h3>
-          <ul>
-            <li class="fragment">🌎 Popularity</li>
-            <li class="fragment">⏱️ Performance?</li>
-            <li class="fragment">🔩 Design decisions</li>
-          </ul> -->
+          <p></p>
         </section>
 
         <section>
@@ -186,10 +201,15 @@
 				  	  npm init vue@latest
 			  	  </code>
 		  	  </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(45deg, #42b883, #007ACC)"
+        >
           then
           <pre class="bash">
-				    <code data-trim>
-				  	  npm install
+            <code data-trim>
+              npm install
 			  	  </code>
 		  	  </pre>
         </section>
@@ -197,11 +217,16 @@
         <section>
           <h3>VS Code</h3>
           <p>"First class" IDE</p>
-          <ul class="fragment">
-            <li>🧩 Vue Language Features (Volar)</li>
-            <li>🧩 TypeScript Vue Plugin (Volar)</li>
-            <li>❌ TypeScript and JavaScript Language Features</li>
-          </ul>
+          <div class="fragment">
+            <ul>
+              <li>🧩 Vue Language Features (Volar)</li>
+              <li>🧩 TypeScript Vue Plugin (Volar)</li>
+              <li>❌ TypeScript and JavaScript Language Features</li>
+            </ul>
+
+            <hr />
+            <p>Important: Vite does not type check!</p>
+          </div>
         </section>
 
         <section
