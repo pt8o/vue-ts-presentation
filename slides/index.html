@@ -253,6 +253,8 @@
             <p>❗ Vite does not type check</p>
             <p>rely on IDE || run <code>tsc --noEmit</code> manually</p>
           </div>
+
+          <aside class="notes">"volar takeover mode" just read docs</aside>
         </section>
 
         <section
@@ -314,6 +316,8 @@
               &lt;/script&gt;
             </code>
           </pre>
+
+          <aside class="notes">why would we ever use runtime?</aside>
         </section>
 
         <section
@@ -352,14 +356,14 @@
             <code data-trim data-line-numbers>
               // type-based
               withDefaults(defineProps<{
-                msgObject: {
-                  msgOne: string,
-                  msgTwo: string,
+                messages: {
+                  title: string,
+                  body: string,
                 }
               }>(), {
-                msgObject: () => ({
-                  msgOne: "First message",
-                  msgTwo: "Second message"
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
                 }),
               });
             </code>
@@ -375,14 +379,14 @@
               import { PropType } from "vue";
 
               defineProps({
-                msg: {
+                messages: {
                   type: Object as PropType<{
-                    msgOne: string,
-                    msgTwo: string,
+                    title: string,
+                    body: string,
                   }>,
                   default: () => ({
-                    msgOne: "First message",
-                    msgTwo: "Second message",
+                    title: "First message",
+                    body: "Second message",
                   });
                 },
               });
@@ -398,16 +402,16 @@
             <code data-trim data-line-numbers>
               // ✅
               interface Props {
-                msgObject: {
-                  msgOne: string,
-                  msgTwo: string,
+                messages: {
+                  title: string,
+                  body: string,
                 },
               };
 
               withDefaults(defineProps&lt;Props&gt;(), {
-                msgObject: () => ({
-                  msgOne: "First message",
-                  msgTwo: "Second message"
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
                 }),
               });
             </code>
@@ -419,9 +423,9 @@
               import type { Props } from "./types";
 
               withDefaults(defineProps&lt;Props&gt;(), {
-                msgObject: () => ({
-                  msgOne: "First message",
-                  msgTwo: "Second message"
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
                 }),
               });
             </code>
@@ -446,16 +450,16 @@
               // types.ts
               // ❌
               export interface Props {
-                msgObject: {
-                  msgOne: string,
-                  msgTwo: string,
+                messages: {
+                  title: string,
+                  body: string,
                 },
               };
 
               // ✅
               export interface MessageObject {
-                msgOne: string,
-                msgTwo: string,
+                title: string,
+                body: string,
               }
             </code>
           </pre>
@@ -470,11 +474,11 @@
               import type { MessageObject } from "./types";
 
               defineProps({
-                msgObject: {
+                messages: {
                   type: Object as PropType&lt;MessageObject&gt;,
                   default: () => ({
-                    msgOne: "First message",
-                    msgTwo: "Second message"
+                    title: "First message",
+                    body: "Second message"
                   }),
                 },
               });
@@ -491,11 +495,11 @@
               import type { MessageObject } from "./types";
 
               withDefaults(defineProps<{
-                msgObject: MessageObject,
+                messages: MessageObject,
               }>(), {
-                msgObject: () => ({
-                  msgOne: "First message",
-                  msgTwo: "Second message"
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
                 }),
               });
             </code>
