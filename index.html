@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Vue + TypeScript | TypeScript Montréal, May 18 2023</title>
+
+    <link
+      rel="shortcut icon"
+      href="https://montreal.ca/shell/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/serif.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <style>
+      :root {
+        --r-main-font-size: 1.8rem;
+        --r-main-font: Fira Code, "Fira Code", monospace;
+        --r-heading-font: Fira Code, "Fira Code", monospace;
+      }
+
+      .reveal pre code {
+        padding: 20px;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+      }
+      li code,
+      p code {
+        padding: 2px 5px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        color: #444;
+      }
+
+      .svg-icon {
+        height: 30px;
+        width: auto;
+        margin-bottom: -5px;
+      }
+
+      ul,
+      li,
+      p {
+        line-height: 3rem;
+      }
+      ul li {
+        list-style-type: none;
+        list-style-position: outside;
+      }
+      ul.withstyle > li {
+        list-style-type: disc;
+        list-style-position: outside;
+      }
+    </style>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h2>🪟✖️🔏</h2>
+          <h3>Vue & TypeScript</h3>
+        </section>
+
+        <section>
+          <h3>Quick intro</h3>
+          <ul class="withstyle">
+            <li class="fragment">Lucas Huang (he/him)</li>
+            <ul class="fragment">
+              <li>🟦 LinkedIn ---- @superko</li>
+              <li>🦊 GitLab ------ @superko</li>
+              <li>🐙 GitHub ------ @pt8o</li>
+              <li>🦣 Mastodon ---- @lph@mastodon.social</li>
+              <li>📸 Instagram --- @h5ien</li>
+              <li>📸 Instagram --- @ragnar.rigatoni</li>
+            </ul>
+            <li class="fragment">senior FE @ Shopify</li>
+            <li class="fragment">usually React + TypeScript dev</li>
+            <li class="fragment">"self-taught"</li>
+            <li class="fragment">🗣️</li>
+          </ul>
+
+          <aside class="notes">
+            show of hands for FE/React<br />
+            French<br />
+          </aside>
+        </section>
+
+        <section>
+          <h3>What is Vue?</h3>
+          <ul>
+            <li class="fragment">🪟 frontend JS framework</li>
+            <li class="fragment">⏱️ performance</li>
+            <li class="fragment">🎓 gentle learning curve</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>What we're doing</h3>
+          <ul>
+            <li class="fragment">
+              📝 simple Vue project setup with TypeScript
+            </li>
+            <li class="fragment">🧰 useful tools</li>
+            <li class="fragment">🕳️ common patterns & pitfalls</li>
+            <li class="fragment">🌶️ Vue vs. React hot takes (maybe)</li>
+          </ul>
+          <p></p>
+        </section>
+
+        <section>
+          <h3>What we're not doing</h3>
+          <ul>
+            <li class="fragment">🎓 walkthrough/code-along</li>
+            <li class="fragment">🤿 technical deep dive</li>
+          </ul>
+          <p></p>
+        </section>
+
+        <section>
+          <h3>Let's get started</h3>
+
+          <p>
+            <a href="https://vitejs.dev/guide/"
+              ><svg
+                width="410"
+                height="404"
+                viewBox="0 0 410 404"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="svg-icon"
+              >
+                <path
+                  d="M399.641 59.5246L215.643 388.545C211.844 395.338 202.084 395.378 198.228 388.618L10.5817 59.5563C6.38087 52.1896 12.6802 43.2665 21.0281 44.7586L205.223 77.6824C206.398 77.8924 207.601 77.8904 208.776 77.6763L389.119 44.8058C397.439 43.2894 403.768 52.1434 399.641 59.5246Z"
+                  fill="url(#paint0_linear)"
+                />
+                <path
+                  d="M292.965 1.5744L156.801 28.2552C154.563 28.6937 152.906 30.5903 152.771 32.8664L144.395 174.33C144.198 177.662 147.258 180.248 150.51 179.498L188.42 170.749C191.967 169.931 195.172 173.055 194.443 176.622L183.18 231.775C182.422 235.487 185.907 238.661 189.532 237.56L212.947 230.446C216.577 229.344 220.065 232.527 219.297 236.242L201.398 322.875C200.278 328.294 207.486 331.249 210.492 326.603L212.5 323.5L323.454 102.072C325.312 98.3645 322.108 94.137 318.036 94.9228L279.014 102.454C275.347 103.161 272.227 99.746 273.262 96.1583L298.731 7.86689C299.767 4.27314 296.636 0.855181 292.965 1.5744Z"
+                  fill="url(#paint1_linear)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear"
+                    x1="6.00017"
+                    y1="32.9999"
+                    x2="235"
+                    y2="344"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#41D1FF" />
+                    <stop offset="1" stop-color="#BD34FE" />
+                  </linearGradient>
+                  <linearGradient
+                    id="paint1_linear"
+                    x1="194.651"
+                    y1="8.81818"
+                    x2="236.076"
+                    y2="292.989"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#FFEA83" />
+                    <stop offset="0.0833333" stop-color="#FFDD35" />
+                    <stop offset="1" stop-color="#FFA800" />
+                  </linearGradient>
+                </defs></svg
+              >&nbsp;vitejs.dev/guide</a
+            >
+          </p>
+
+          <p>
+            <a href="https://vuejs.org/guide/typescript/overview.html"
+              ><svg
+                version="1.1"
+                viewBox="0 0 261.76 226.69"
+                xmlns="http://www.w3.org/2000/svg"
+                class="svg-icon"
+              >
+                <g transform="matrix(1.3333 0 0 -1.3333 -76.311 313.34)">
+                  <g transform="translate(178.06 235.01)">
+                    <path
+                      d="m0 0-22.669-39.264-22.669 39.264h-75.491l98.16-170.02 98.16 170.02z"
+                      fill="#41b883"
+                    />
+                  </g>
+                  <g transform="translate(178.06 235.01)">
+                    <path
+                      d="m0 0-22.669-39.264-22.669 39.264h-36.227l58.896-102.01 58.896 102.01z"
+                      fill="#34495e"
+                    />
+                  </g>
+                </g></svg
+              >&nbsp;vuejs.org/guide/typescript/overview.html</a
+            >
+          </p>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <pre class="bash">
+				    <code data-trim>
+					    npm create vite@latest
+				    </code>
+			    </pre>
+          or
+          <pre class="bash">
+				    <code data-trim>
+				  	  npm create vite@latest live-demo --template vue-ts
+			  	  </code>
+		  	  </pre>
+          or
+          <pre class="bash">
+				    <code data-trim>
+				  	  npm init vue@latest
+			  	  </code>
+		  	  </pre>
+
+          <aside class="notes">reasonably recent NodeJS</aside>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          then
+          <pre class="bash">
+            <code data-trim>
+              cd live-demo && npm install
+			  	  </code>
+		  	  </pre>
+        </section>
+
+        <section>
+          <h3>VS Code</h3>
+          <p>"First class" IDE</p>
+          <div class="fragment">
+            <ul>
+              <li>🧩 Vue Language Features (Volar)</li>
+              <li>🧩 TypeScript Vue Plugin (Volar)</li>
+              <li>❌ TypeScript and JavaScript Language Features</li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <hr />
+            <p>❗ Vite does not type check</p>
+            <p>rely on IDE || run <code>tsc --noEmit</code> manually</p>
+          </div>
+
+          <aside class="notes">"volar takeover mode" just read docs</aside>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <pre class="bash">
+            <code data-trim>
+              npm run dev
+              #  VITE v4.3.4  ready in 468 ms
+              #  ➜  Local:   http://localhost:5173/
+              #  ➜  Network: use --host to expose
+              #  ➜  press h to show help
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Declaring props</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers="3">
+              // !TS: props just passed in as an array
+              &lt;script setup&gt;
+                defineProps(['msg']);
+              &lt;/script&gt;
+
+              <template>
+                <div>My message: {{ msg }}</div>
+              </template>
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <pre class="typescript">
+            <code data-trim data-line-numbers="3-5">
+              // "type-based declaration"
+              &lt;script lang="ts" setup&gt;
+                defineProps<{
+                  msg: string,
+                }>();
+              &lt;/script&gt;
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers="3-6">
+              // "runtime declaration"
+              &lt;script lang="ts" setup&gt;
+                defineProps({
+                  msg: {
+                    type: String,
+                    required: true,
+                  },
+                });
+              &lt;/script&gt;
+            </code>
+          </pre>
+
+          <aside class="notes">why would we ever use runtime?</aside>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Default values</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // type-based
+              withDefaults(defineProps<{
+                msg?: string,
+              }>(), {
+                msg: "Default message",
+              });
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // runtime
+              defineProps({
+                msg: {
+                  type: String,
+                  default: "Default message",
+                },
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>More complex prop shape</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // type-based
+              withDefaults(defineProps<{
+                messages: {
+                  title: string,
+                  body: string,
+                }
+              }>(), {
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
+                }),
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // runtime
+              import { PropType } from "vue";
+
+              defineProps({
+                messages: {
+                  type: Object as PropType<{
+                    title: string,
+                    body: string,
+                  }>,
+                  default: () => ({
+                    title: "First message",
+                    body: "Second message",
+                  });
+                },
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Using interfaces: type-based declaration</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // ✅
+              interface Props {
+                messages: {
+                  title: string,
+                  body: string,
+                },
+              };
+
+              withDefaults(defineProps&lt;Props&gt;(), {
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
+                }),
+              });
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // ❌ (for now)
+              import type { Props } from "./types";
+
+              withDefaults(defineProps&lt;Props&gt;(), {
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
+                }),
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Using interfaces: runtime declaration</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // ❌
+              import type { Props } from "./types";
+
+              defineProps({ // ???
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // types.ts
+              // ❌
+              export interface Props {
+                messages: {
+                  title: string,
+                  body: string,
+                },
+              };
+
+              // ✅
+              export interface MessageObject {
+                title: string,
+                body: string,
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              import { PropType } from "vue";
+              import type { MessageObject } from "./types";
+
+              defineProps({
+                messages: {
+                  type: Object as PropType&lt;MessageObject&gt;,
+                  default: () => ({
+                    title: "First message",
+                    body: "Second message"
+                  }),
+                },
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Using interfaces: type-based declaration (reprise)</h4>
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              import type { MessageObject } from "./types";
+
+              withDefaults(defineProps<{
+                messages: MessageObject,
+              }>(), {
+                messages: () => ({
+                  title: "First message",
+                  body: "Second message"
+                }),
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <p>
+            <code>emit</code>, <code>ref</code>, <code>computed</code>, oh my!
+          </p>
+          <pre class="typescript">
+            <code data-trim data-line-numbers="7">
+              import { ref } from 'vue'
+
+              // inferred type: Ref&lt;number&gt;
+              const year = ref(2023);
+              year.value = "2023"; // ❌
+
+              const year = ref&lt;number | string&gt;(2023);
+              year.value = "2023"; // ✅
+            </code>
+          </pre>
+          <br />
+          <p>
+            <a href="https://vuejs.org/guide/typescript/composition-api.html"
+              ><svg
+                version="1.1"
+                viewBox="0 0 261.76 226.69"
+                xmlns="http://www.w3.org/2000/svg"
+                class="svg-icon"
+              >
+                <g transform="matrix(1.3333 0 0 -1.3333 -76.311 313.34)">
+                  <g transform="translate(178.06 235.01)">
+                    <path
+                      d="m0 0-22.669-39.264-22.669 39.264h-75.491l98.16-170.02 98.16 170.02z"
+                      fill="#41b883"
+                    />
+                  </g>
+                  <g transform="translate(178.06 235.01)">
+                    <path
+                      d="m0 0-22.669-39.264-22.669 39.264h-36.227l58.896-102.01 58.896 102.01z"
+                      fill="#34495e"
+                    />
+                  </g>
+                </g></svg
+              >&nbsp;vuejs.org/guide/typescript/composition-api.html</a
+            >
+          </p>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Vue context: provide/inject</h4>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // ContextProvider.vue
+              provide("count", 0);
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // Component.vue
+              <script ...>
+                const count = inject("count"); // ❓
+              </script>
+
+              <template>
+                <div>Count: {{ count }}</div>
+              </template>
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // Component.vue
+              const count = inject("count") as number; // 🤔
+            </code>
+          </pre>
+        </section>
+
+        <section
+          data-background-gradient="linear-gradient(140deg, #42b883, #007ACC)"
+        >
+          <h4>Typing provide/inject 🔏</h4>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // context.ts
+              import { InjectionKey } from "vue";
+
+              export const countKey = Symbol("count") as InjectionKey&lt;number&gt;;
+            </code>
+          </pre>
+
+          <pre class="typescript">
+
+            <code data-trim data-line-numbers>
+              // ContextProvider.vue
+              import {countKey} from "./context";
+
+              provide(countKey, 0);
+            </code>
+          </pre>
+
+          <pre class="typescript">
+            <code data-trim data-line-numbers>
+              // Component.vue
+              import {countKey} from "./context";
+
+              const count = inject(countKey);
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Summary</h3>
+          <ul class="withstyle">
+            <li>quick intro to Vue</li>
+            <li>project setup with Vite</li>
+            <li>VSCode recommendations</li>
+            <li>
+              <code>defineProps</code>: type-based vs. runtime declaration
+            </li>
+            <li>very quick mention of <code>ref</code> typing</li>
+            <li><code>provide</code>/<code>inject</code> typing</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Homework</h3>
+          <ul class="withstyle">
+            <li>Vue Options vs. Composition API</li>
+            <li>
+              <code>&lt;script setup&gt;</code> vs. non-<code>setup</code>
+              workflow
+            </li>
+            <li>
+              <code>emit</code>, <code>computed</code>, <code>reactive</code>
+            </li>
+            <li>reactivity in general</li>
+            <li>lifecycle hooks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>?</h3>
+        </section>
+
+        <section>
+          <h2>🌶️🌶️🌶️</h2>
+
+          <aside class="notes">
+            <p>Vue less "magical"</p>
+            <p>e.g. React Hooks vs. Vue lifecycle</p>
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+        controls: false,
+        progress: false,
+
+        // highlight: {
+        //   beforeHighlight: (hljs) => hljs.registerLanguage("bash"),
+        // },
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
